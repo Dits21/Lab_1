@@ -54,7 +54,6 @@ botones = pd.DataFrame(matriz)
 botones.to_csv('botones1.csv')
 
 
-
 def embed_mp4(filename):
   """Embeds an mp4 file in the notebook."""
   video = open(filename,'rb').read()
