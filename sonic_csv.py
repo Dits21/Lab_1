@@ -8,14 +8,11 @@ import imageio
 import base64
 import IPython
 
-import pandas as pd
-
 video_size = 700, 500
 video_filename = "SONIC.mp4"
 matriz = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 
 def key_action():
-    #["B", "A", "MODE", "START", "UP", "DOWN", "LEFT", "RIGHT", "C", "Y", "X", "Z"]
     buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     keys=pygame.key.get_pressed()
     if keys[K_LEFT]:
@@ -69,8 +66,5 @@ def embed_mp4(filename):
   </video>'''.format(b64.decode())
 
   return IPython.display.HTML(tag)
-
-
-
 
 embed_mp4(video_filename)
