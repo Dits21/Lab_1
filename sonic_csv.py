@@ -7,12 +7,13 @@ import imutils
 import imageio
 import base64
 import IPython
+import csv 
 
 import pandas as pd
 
 video_size = 700, 500
 video_filename = "SONIC.mp4"
-matriz = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+
 
 def key_action():
     #["B", "A", "MODE", "START", "UP", "DOWN", "LEFT", "RIGHT", "C", "Y", "X", "Z"]
@@ -35,6 +36,13 @@ env.reset()
 
 done = False
 clock = pygame.time.Clock()
+#archivo
+csvfile = open('record.csv','a', newline='', encoding='utf8')
+names = ['row', 'action', 'reward']
+writer = csv.DictWriter(csvfile, fieldnames=names)
+cont=0	
+
+
 with imageio.get_writer(video_filename, fps=60) as video:
  while not done:
     clock.tick(60) 
@@ -49,12 +57,8 @@ with imageio.get_writer(video_filename, fps=60) as video:
     ob, rew, done, info = env.step(action)
     pygame.event.pump()
     print("Action ", action, "Reward ", rew)
-    matriz = np.append(matriz, [action], axis=0)
-    video.append_data(env.render(mode='rgb_array'))
-
-print(matriz)
-botones = pd.DataFrame(matriz)
-botones.to_csv('botones1.csv')
+    cont=cont+1
+    writer.writerow({'row': cont, 'action': action, 'reward': rew})
 
 
 
